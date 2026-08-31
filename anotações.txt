@@ -1,0 +1,6 @@
+Se der algum problema com as bibliotecas rodar o requirements.txt: pip install -r requirements.txt
+Inserir primeiro $env:PYTHONPATH="src"
+rodar python main.py
+
+Se quiser rodar outro experimento, troque o nome do parâmetro EXPERIMENT_NAME, caso contrário, irá dar erro por causa
+do load_if_exists do optuna. Ou apague a pasta dentro de experiments
