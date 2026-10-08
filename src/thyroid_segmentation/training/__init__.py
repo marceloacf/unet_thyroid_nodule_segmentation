@@ -6,4 +6,4 @@ from thyroid_segmentation.training.losses import (
 )
 
 from thyroid_segmentation.training.callbacks import build_callbacks
-from thyroid_segmentation.training.objective import build_objective
+#from thyroid_segmentation.training.objective import build_objective

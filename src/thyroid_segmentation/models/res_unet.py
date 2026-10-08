@@ -11,7 +11,8 @@ def build_residual_attention_unet(
     input_shape,
     num_filters=64,
     dropout_rate=0.0,
-    blocks_per_stage=(1, 1, 1, 1)
+    blocks_per_stage=(1, 1, 1, 1),
+    use_attention=True
 ):
     inputs = Input(input_shape)
 
@@ -53,28 +54,32 @@ def build_residual_attention_unet(
         bottleneck,
         conv4,
         num_filters * 8,
-        dropout_rate
+        dropout_rate,
+        use_attention
     )
 
     decoder2 = decoder_block(
         decoder1,
         conv3,
         num_filters * 4,
-        dropout_rate
+        dropout_rate,
+        use_attention
     )
 
     decoder3 = decoder_block(
         decoder2,
         conv2,
         num_filters * 2,
-        dropout_rate
+        dropout_rate,
+        use_attention
     )
 
     decoder4 = decoder_block(
         decoder3,
         conv1,
         num_filters,
-        dropout_rate
+        dropout_rate,
+        use_attention
     )
 
     outputs = Conv2D(

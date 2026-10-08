@@ -16,7 +16,7 @@ from thyroid_segmentation.config import (
 )
 
 from thyroid_segmentation.data import build_dataset
-from thyroid_segmentation.models import build_residual_attention_unet
+from thyroid_segmentation.models import build_unet
 from thyroid_segmentation.training.losses import (
     bce_dice_loss,
     dice_loss,

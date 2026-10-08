@@ -104,7 +104,7 @@ def residual_encoder_block(inputs, num_filters, n_blocks=1):
 
 
 def attention_gate(gating, skip, num_filters):
-    inter_filters = max(num_filters // 2, 1)
+    inter_filters = max(num_filters, 1)
 
     Wg = Conv2D(
         inter_filters,
@@ -140,7 +140,7 @@ def attention_gate(gating, skip, num_filters):
     return attended_skip
 
 
-def decoder_block(inputs, skip_connection, num_filters, dropout_rate=0.0):
+def decoder_block(inputs, skip_connection, num_filters, dropout_rate=0.0, use_attention=True):
     x = UpSampling2D(
         size=(2, 2),
         interpolation="bilinear"
@@ -156,9 +156,11 @@ def decoder_block(inputs, skip_connection, num_filters, dropout_rate=0.0):
     x = BatchNormalization()(x)
     x = Activation("relu")(x)
 
-    attention = attention_gate(x, skip_connection, num_filters)
+    if use_attention:
+            skip_connection = attention_gate(upconv, skip_connection, num_filters)
+    #attention = attention_gate(x, skip_connection, num_filters) linha anterior sem a condição
 
-    x = concatenate([x, attention])
+    x = concatenate([x, skip_connection])
     x = conv_block(x, num_filters, dropout_rate)
 
     return x

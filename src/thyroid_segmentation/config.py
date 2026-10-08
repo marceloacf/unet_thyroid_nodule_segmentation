@@ -6,8 +6,8 @@ import os
 
 DATASET_PATH = "C:/Users/marcelo/Documents/projetoTcc/Thyroid Dataset/tn3k"
 
-EXPERIMENT_NAME = "experimento_1_kfold_32filtros_160"
-
+EXPERIMENT_NAME = "ablacao_attentionunet_com_augmentation2"
+#sem o attention gate com numfilters//2
 EXPERIMENTS_DIR = os.path.join("outputs", "experiments")
 EXPERIMENT_DIR = os.path.join(EXPERIMENTS_DIR, EXPERIMENT_NAME)
 
@@ -81,8 +81,8 @@ FOLDS_CSV_PATH = os.path.join(
     "folds_stratified_area.csv"
 )
 
-AREA_SMALL_MAX = 0.01
-AREA_MEDIUM_MAX = 0.05
+AREA_SMALL_MAX = 0.05
+AREA_MEDIUM_MAX = 0.20
 
 # Para teste rápido, use [1].
 # Para rodar todos os folds, use None.
@@ -97,10 +97,11 @@ FOLDS_TO_RUN = None
 
 EPOCHS = 100
 
-N_FILTERS = 32
-BATCH_SIZE = 8
-LEARNING_RATE = 1e-4
+N_FILTERS = 64
+BATCH_SIZE = 4
+LEARNING_RATE = 0.0001
 DROPOUT_RATE = 0.1
+USE_ATTENTION = True
 
 BLOCKS_PER_STAGE = (3, 4, 6, 3)
 #3,4,6,3 resnet34
@@ -109,10 +110,10 @@ BLOCKS_PER_STAGE = (3, 4, 6, 3)
 # Callbacks
 # =========================
 
-EARLY_STOPPING_PATIENCE = 25
+EARLY_STOPPING_PATIENCE = 40
 EARLY_STOPPING_MIN_DELTA = 1e-4
 
-REDUCE_LR_PATIENCE = 7
+REDUCE_LR_PATIENCE = 10
 REDUCE_LR_FACTOR = 0.5
 REDUCE_LR_MIN_DELTA = 1e-4
 REDUCE_LR_COOLDOWN = 2

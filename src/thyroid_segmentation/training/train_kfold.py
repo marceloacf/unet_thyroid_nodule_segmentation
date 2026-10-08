@@ -26,6 +26,7 @@ from thyroid_segmentation.config import (
     BATCH_SIZE,
     LEARNING_RATE,
     DROPOUT_RATE,
+    USE_ATTENTION,
     BLOCKS_PER_STAGE,
     MODELS_DIR,
     HISTORIES_DIR,
@@ -43,7 +44,8 @@ from thyroid_segmentation.data.dataset import build_dataset
 from thyroid_segmentation.data.augmentation import build_augmenter
 from thyroid_segmentation.data.kfold import obter_paths_do_fold
 
-from thyroid_segmentation.models.res_unet import build_residual_attention_unet
+#from thyroid_segmentation.models.res_unet import build_residual_attention_unet
+from thyroid_segmentation.models.unet import build_unet
 
 from thyroid_segmentation.training.losses import (
     bce_dice_loss,
@@ -246,7 +248,7 @@ def treinar_kfold(trainval_df):
                 f"Vazamento detectado no fold {fold}: "
                 f"{intersecao} imagem(ns) repetida(s)."
             )
-
+        
         train_dataset = build_dataset(
             image_paths=fold_train_images,
             mask_paths=fold_train_masks,
@@ -273,11 +275,19 @@ def treinar_kfold(trainval_df):
             clahe_tile_grid_size=CLAHE_TILE_GRID_SIZE
         )
 
-        model = build_residual_attention_unet(
+        # model = build_residual_attention_unet(
+        #     input_shape=INPUT_SHAPE,
+        #     num_filters=N_FILTERS,
+        #     dropout_rate=DROPOUT_RATE,
+        #     blocks_per_stage=BLOCKS_PER_STAGE,
+        #     use_attention=USE_ATTENTION
+        # )
+
+        model = build_unet(
             input_shape=INPUT_SHAPE,
             num_filters=N_FILTERS,
             dropout_rate=DROPOUT_RATE,
-            blocks_per_stage=BLOCKS_PER_STAGE
+            use_attention=USE_ATTENTION
         )
 
         model.compile(
