@@ -6,7 +6,7 @@ import os
 
 DATASET_PATH = "C:/Users/marcelo/Documents/projetoTcc/Thyroid Dataset/tn3k"
 
-EXPERIMENT_NAME = "ablacao_attentionunet_com_augmentation2"
+EXPERIMENT_NAME = "melhormodeloseg"
 #sem o attention gate com numfilters//2
 EXPERIMENTS_DIR = os.path.join("outputs", "experiments")
 EXPERIMENT_DIR = os.path.join(EXPERIMENTS_DIR, EXPERIMENT_NAME)
