@@ -157,7 +157,7 @@ def decoder_block(inputs, skip_connection, num_filters, dropout_rate=0.0, use_at
     x = Activation("relu")(x)
 
     if use_attention:
-            skip_connection = attention_gate(upconv, skip_connection, num_filters)
+            skip_connection = attention_gate(x, skip_connection, num_filters)
     #attention = attention_gate(x, skip_connection, num_filters) linha anterior sem a condição
 
     x = concatenate([x, skip_connection])
